@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod 764 file
+chmod u+=rwx,g+=rw,o+=r hello
