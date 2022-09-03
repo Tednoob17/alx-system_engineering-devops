@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod +111 dir0 dir1 dir2
+chmod +111 */
