@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
-#Configure your Nginx server so that /redirect_me is redirecting to another page.
-#The redirection must be a “301 Moved Permanently”
-STRING="Hello World!"
-REDIRECT="\n\tlocation /redirect_me {\n\t\treturn 301 https://youtu.be/dQw4w9WgXcQ; \n\t}\n"
-FILE="/etc/nginx/sites-available/default"
+# Script that installs Nginx server and redirects /redirect_me
 apt-get -y update
 apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-echo "$STRING" > /var/www/html/index.nginx-debian.html
-sed -i "37i\ $REDIRECT" "$FILE"
-service nginx restart
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/abrahamesane permanent;/" /etc/nginx/sites-available/default
+service nginx start
