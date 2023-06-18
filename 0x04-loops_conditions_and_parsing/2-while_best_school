@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# This script prints "Best school" 10 times
-n=1
-
-while [ $n -le 10 ]
+# While loop to print Best School
+i=0
+while [ $i -lt 10 ]
 do
-    echo "Best School"
-    n=$(( n + 1 ))
+	echo "Best School"
+	i=$((i+1))
 done

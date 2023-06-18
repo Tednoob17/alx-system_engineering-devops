@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-#Script that displays all listening sockets 
+# Listenings ports
 netstat -lp

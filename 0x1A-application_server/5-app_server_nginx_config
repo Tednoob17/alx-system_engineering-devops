@@ -1,0 +1,24 @@
+server {
+    listen 80 default_server;
+
+    location /airbnb-onepage/ {
+        alias ~/AirBnB_clone_v2/web_flask/;
+        proxy_pass http://localhost:5000/airbnb-onepage/;
+    }
+
+    location /airbnb-dynamic/number_odd_or_even/ {
+        alias ~/AirBnB_clone_v2/web_flask/;
+        rewrite ^/airbnb-dynamic/number_odd_or_even/(.*)$ /$1 break;
+        proxy_pass http://localhost:5001/airbnb-dynamic/number_odd_or_even/;
+    }
+
+    location /api/ {
+        alias ~/AirBnB_clone_v3/api/;
+        proxy_pass http://localhost:5002/;
+    }
+
+    location / {
+        alias ~/AirBnB_clone_v4/web_dynamix/;
+        proxy_pass http://localhost:5003/;
+    }
+}

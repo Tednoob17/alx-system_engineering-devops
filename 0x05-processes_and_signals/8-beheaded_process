@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# Kills the process 7-highlander.
+# Beheaded process
 
-pkill -f -SIGKILL 7-highlander
+pgrep -f 7-highlander | xargs kill -9

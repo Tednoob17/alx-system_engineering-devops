@@ -1,0 +1,12 @@
+server {
+    listen 80 default_server;
+
+    location /airbnb-onepage/ {
+        proxy_pass http://localhost:5000/airbnb-onepage/;
+    }
+
+    location /airbnb-dynamic/number_odd_or_even/ {
+        rewrite ^/airbnb-dynamic/number_odd_or_even/(.*)$ /$1 break;
+        proxy_pass http://localhost:5001/airbnb-dynamic/number_odd_or_even/;
+    }
+}

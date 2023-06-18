@@ -1,3 +1,7 @@
-Host *
-	passwordAuthentification no
+# Configuraton file for SSH
+
+Host web-01
+	Hostname 52.3.245.82
+	User ubuntu
+	PasswordAuthentication no
 	IdentityFile ~/.ssh/school
