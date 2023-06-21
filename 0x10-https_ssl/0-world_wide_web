@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
-# Script that displays information about subdomains.
+# Script that will display information about subdomains
 
-func () {
-    if [ -n "$2" ]
-    then
-	dig "$2.$1" | grep -A1 'ANSWER SECTION:' | paste - - | awk -v sd="$2" '{print "The subdomain " sd " is a " $7 " record and points to " $8}'
-    else
-	dig "www.$1" | grep -A1 'ANSWER SECTION:' | paste - - | awk '{print "The subdomain www is a " $7 " record and points to " $8}'
-	dig "lb-01.$1" | grep -A1 'ANSWER SECTION:' | paste - - | awk '{print "The subdomain lb-01 is a " $7 " record and points to " $8}'
-	dig "web-01.$1" | grep -A1 'ANSWER SECTION:' | paste - - | awk '{print "The subdomain web-01 is a " $7 " record and points to " $8}'
-	dig "web-02.$1" | grep -A1 'ANSWER SECTION:' | paste - - | awk '{print "The subdomain web-02 is a " $7 " record and points to " $8}'
-    fi
+DNS_info () {
+    ANSWER=$(dig $2 | grep -A1 'ANSWER SECTION:' | awk 'NR==2 {print $0}')
+    echo "The subdomain $1 is a $(echo $ANSWER | awk '{print $4}') record and points to $(echo $ANSWER | awk '{print $5}')"
 }
 
-func "$1" "$2"
+if [[ $# == 1 ]]; then
+    subdomains=('www' 'lb-01' 'web-01' 'web-02')
+    for i in "${subdomains[@]}"; do
+	CONCAT="$i.$1"
+	DNS_info $i $CONCAT
+    done
+else
+    CONCAT="$2.$1"
+    DNS_info $2 $CONCAT
+fi
